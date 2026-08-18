@@ -33,14 +33,14 @@ if (max(comp_times) < 1/R_samples):
         r = payload_a[0]*eta[0]/capacity_c[0]
         s = payload_a[1]*eta[1]/capacity_c[1]
 
-        comm_d = max(max(payload_a),max(r,s))
+        comm_d = max(max(comp_times),max(r,s))
         throughput = 1/comm_d
 
         #uniform policy
         uni_eta = min(1,capacity_c[0]/R_samples/payload_a[0], capacity_c[1]/R_samples/payload_a[1])
         t = payload_a[0]*uni_eta/capacity_c[0]
         u = payload_a[1]*uni_eta/capacity_c[1]
-        d_uni = max(max(payload_a),max(t,u))
+        d_uni = max(max(comp_times),max(t,u))
         throughput_uni = 1/d_uni
         acc_uni = acc(uni_eta, uni_eta)
         #record the results
