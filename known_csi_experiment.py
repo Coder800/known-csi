@@ -1,6 +1,6 @@
 #experiment A
 
-from cmath import sqrt
+from math import sqrt
 import random
 
 payload_a = [0.8,0.5]
@@ -8,10 +8,11 @@ payload_a = [0.8,0.5]
 eta_min = [0.2,0.2]
 R_samples = 4
 comp_times = [0.08,0.1,0.07]
-def acc(a):
-    return 0.55 + 0.25*sqrt(a[0]) + 0.2*sqrt(a[1])
+def acc(a,b):
+    return 0.55 + 0.25*sqrt(a) + 0.2*sqrt(b)
 acc_uno = 0
-
+records = []
+feasability = []
 print(acc_uno)
 rand = random.Random(7)
 if (max(comp_times) < 1/R_samples):
@@ -22,10 +23,13 @@ if (max(comp_times) < 1/R_samples):
         q = payload_a[1]*eta_min[1]/capacity_c[1]
         if (max(p,q) < 1/R_samples):
             print("Feasableee")
+            feasability.append(True)
+        else:
+            feasability.append(False)
 
         #theorem 3.1
         eta = [min(1,capacity_c[0]/R_samples/payload_a[0]), min(1,capacity_c[1]/R_samples/payload_a[1])]
-        acc_uno = acc(eta)
+        acc_uno = acc(eta[0],eta[1])
         r = payload_a[0]*eta[0]/capacity_c[0]
         s = payload_a[1]*eta[1]/capacity_c[1]
 
@@ -38,3 +42,8 @@ if (max(comp_times) < 1/R_samples):
         u = payload_a[1]*uni_eta/capacity_c[1]
         d_uni = max(max(payload_a),max(t,u))
         throughput_uni = 1/d_uni
+        acc_uni = acc(uni_eta, uni_eta)
+        #record the results
+        records.append({"slot":i, "capacity_1":capacity_c[0], "capacity_2":capacity_c[1], "eta_min":eta_min[0], "eta_min2":eta_min[1], "acc":acc_uno, "throughput":throughput, "uni_eta":uni_eta, "throughput_uni":throughput_uni, "d_uni": d_uni, "acc_uni":acc_uni})
+print(records)
+print(feasability)
