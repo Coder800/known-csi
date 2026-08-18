@@ -47,3 +47,5 @@ if (max(comp_times) < 1/R_samples):
         records.append({"slot":i, "capacity_1":capacity_c[0], "capacity_2":capacity_c[1], "eta_min":eta_min[0], "eta_min2":eta_min[1], "acc":acc_uno, "throughput":throughput, "uni_eta":uni_eta, "throughput_uni":throughput_uni, "d_uni": d_uni, "acc_uni":acc_uni})
 print(records)
 print(feasability)
+
+#experiment B
