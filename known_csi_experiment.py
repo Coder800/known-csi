@@ -53,12 +53,24 @@ a_b = [1,0.8]
 R_b = [2,3]
 eta_min_b = 0.2
 w_b = [0.6,0.4]
-capacity_c_b = rand.uniform(1.3,3.5)
-eta_b = [1,2]
-Acc_b = [0.55+ 0.45*sqrt(eta_b[0]), 0.6+ 0.4*sqrt(eta_b[1])]
-Sv_min = a_b[0]*eta_min_b*R_b[0]/capacity_c_b
-SL_min = a_b[1]*eta_min_b*R_b[1]/capacity_c_b
-if ((Sv_min + SL_min) <=1):
-    print("ayyy feasableee")
-else:
-    print("nahh")
+records_b = []
+for i in range(100):
+    capacity_c_b = rand.uniform(1.3,3.5)
+    eta_b = [1,2]
+    Acc_b = [0.55+ 0.45*sqrt(eta_b[0]), 0.6+ 0.4*sqrt(eta_b[1])]
+    Sv_min = a_b[0]*eta_min_b*R_b[0]/capacity_c_b
+    SL_min = a_b[1]*eta_min_b*R_b[1]/capacity_c_b
+    if ((Sv_min + SL_min) <=1):
+        print("ayyy feasableee")
+    else:
+        print("nahh")
+    lower = Sv_min
+    upper = 1-SL_min
+    if upper < lower:
+        upper = lower
+    steps = int(round(upper-lower)/0.001)
+    for k in range(steps+1):
+        Sv = lower + k*0.001
+        if Sv > upper:
+            Sv = upper
+        
